@@ -2,6 +2,7 @@ var expect = require('expect');
 var redis = require('../index');
 var Promise = require('../utils/Promise');
 var db = require('./db');
+var comb = require('comb');
 
 describe('monitor', function () {
   var monitor;
@@ -23,19 +24,17 @@ describe('monitor', function () {
         monitorMessages.push(args);
       });
 
-      return monitor.monitor().then(function (reply) {
+      return monitor.monitor().chain(function (reply) {
         expect(reply).toEqual('OK');
 
         // Send all commands in order.
-        var result = Promise.resolve();
+        var result = [];
 
         commands.forEach(function (command) {
-          result = result.then(function () {
-            return db.send(command[0], command.slice(1));
-          });
+          result.push(db.send(command[0], command.slice(1)));
         });
 
-        return result.then(waitForDelivery);
+        return comb.chain(result).chain(waitForDelivery);
       });
     });
 
@@ -50,7 +49,7 @@ describe('monitor', function () {
 });
 
 function waitForDelivery() {
-  return new Promise(function (resolve, reject) {
-    setTimeout(resolve, 10);
-  });
+  var p = new Promise();
+  setTimeout(p.callback, 10);
+  return p.promise();
 }

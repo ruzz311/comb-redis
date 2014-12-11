@@ -5,7 +5,7 @@ var db = require('./db');
 describe('incr', function () {
   describe('when a key does not exist', function () {
     it('returns 1', function () {
-      return db.incr('does-not-exist').then(function (reply) {
+      return db.incr('does-not-exist').chain(function (reply) {
         expect(reply).toBe(1);
       });
     });
@@ -17,7 +17,7 @@ describe('incr', function () {
     });
 
     it('returns the incremented value', function () {
-      return db.incr('a-key').then(function (reply) {
+      return db.incr('a-key').chain(function (reply) {
         expect(reply).toBe(6);
       });
     });
@@ -29,7 +29,7 @@ describe('incr', function () {
     });
 
     it('returns an error', function () {
-      return db.incr('a-key').then(function () {
+      return db.incr('a-key').chain(function () {
         assert(false, 'incr succeeded on a non-integer key');
       }, function (error) {
         assert(error);

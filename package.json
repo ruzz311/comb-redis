@@ -1,5 +1,5 @@
 {
-  "name": "then-redis",
+  "name": "comb-redis",
   "version": "1.0.3",
   "description": "A small, promise-based Redis client",
   "main": "modules/index.js",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mjackson/then-redis.git"
+    "url": "git://github.com/ruzz311/comb-redis.git"
   },
   "dependencies": {
-    "bluebird": "^2.3.11",
+    "comb": "^0.3.6",
     "redis": "^0.12.1"
   },
   "devDependencies": {
@@ -24,6 +24,12 @@
     "then",
     "promise",
     "promises"
+  ],
+  "contributors": [
+    {
+      "name": "Russell Madsen",
+      "email": "ruzz311@gmail.com"
+    }
   ],
   "author": "Michael Jackson",
   "license": "MIT"

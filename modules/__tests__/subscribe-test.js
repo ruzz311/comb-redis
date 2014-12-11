@@ -1,6 +1,7 @@
 var expect = require('expect');
 var redis = require('../index');
 var Promise = require('../utils/Promise');
+var comb = require('comb');
 var db = require('./db');
 
 describe('subscribe', function () {
@@ -32,8 +33,8 @@ describe('subscribe', function () {
         receivedMessages.push(message);
       });
 
-      return subscriber.subscribe('a').then(function () {
-        return sendMessages('a', sentMessages).then(waitForDelivery);
+      return subscriber.subscribe('a').chain(function () {
+        return sendMessages('a', sentMessages).chain(waitForDelivery);
       });
     });
 
@@ -60,14 +61,14 @@ describe('subscribe', function () {
         if (channel === 'b') bReceivedMessages.push(message);
       });
 
-      return Promise.all([
+      return comb.when([
         subscriber.subscribe('a'),
         subscriber.subscribe('b')
-      ]).then(function () {
-        return Promise.all([
+      ]).chain(function () {
+        return comb.when([
           sendMessages('a', aSentMessages),
           sendMessages('b', bSentMessages)
-        ]).then(waitForDelivery);
+        ]).chain(waitForDelivery);
       });
     });
 
@@ -79,7 +80,7 @@ describe('subscribe', function () {
 });
 
 function waitForDelivery() {
-  return new Promise(function (resolve, reject) {
-    setTimeout(resolve, 10);
-  });
+  var p = new Promise();
+  setTimeout(p.callback, 10);
+  return p.promise();
 }
