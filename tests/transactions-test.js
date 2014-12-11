@@ -8,7 +8,7 @@ describe('transactions', function () {
       db.multi();
       db.incr('a');
       db.incr('b');
-      return db.exec().then(function (reply) {
+      return db.exec().chain(function (reply) {
         expect(reply).toEqual([ 1, 1 ]);
       });
     });
@@ -19,7 +19,7 @@ describe('transactions', function () {
       db.multi();
       db.set('a', 'hello');
       db.incr('a');
-      return db.exec().then(function (reply) {
+      return db.exec().chain(function (reply) {
         expect(reply.length).toEqual(2);
         expect(reply[1]).toEqual('ERR value is not an integer or out of range');
       });
@@ -29,7 +29,7 @@ describe('transactions', function () {
   describe('when there is an error enqueueing the transaction', function () {
     it('throws the error', function () {
       db.multi();
-      return db.send('unknown-command').then(function () {
+      return db.send('unknown-command').chain(function () {
         assert(false, 'successfully queued non-existent command');
       }, function (error) {
         assert(error);

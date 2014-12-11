@@ -1,1 +1,1 @@
-module.exports = require('bluebird');
+module.exports = require('comb').Promise;

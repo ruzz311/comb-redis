@@ -2,11 +2,11 @@ var assert = require('assert');
 var expect = require('expect');
 var db = require('./db');
 
-describe('incr', function () {
+describe('decr', function () {
   describe('when a key does not exist', function () {
-    it('returns 1', function () {
-      return db.incr('does-not-exist').chain(function (reply) {
-        expect(reply).toBe(1);
+    it('returns -1', function () {
+      return db.decr('does-not-exist').chain(function (reply) {
+        expect(reply).toBe(-1);
       });
     });
   });
@@ -16,9 +16,9 @@ describe('incr', function () {
       return db.set('a-key', 5);
     });
 
-    it('returns the incremented value', function () {
-      return db.incr('a-key').chain(function (reply) {
-        expect(reply).toBe(6);
+    it('returns the decremented value', function () {
+      return db.decr('a-key').chain(function (reply) {
+        expect(reply).toBe(4);
       });
     });
   });
@@ -29,8 +29,8 @@ describe('incr', function () {
     });
 
     it('returns an error', function () {
-      return db.incr('a-key').chain(function () {
-        assert(false, 'incr succeeded on a non-integer key');
+      return db.decr('a-key').chain(function () {
+        assert(false, 'decr succeeded on a non-integer key');
       }, function (error) {
         assert(error);
         expect(error.message).toMatch(/not an integer/);

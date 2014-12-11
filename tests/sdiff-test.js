@@ -1,10 +1,11 @@
 var expect = require('expect');
-var Promise = require('../utils/Promise');
+var comb = require('comb');
 var db = require('./db');
 
 describe('sdiff', function () {
   beforeEach(function () {
-    return Promise.all([
+
+    return comb.when([
       db.sadd('set-one', 1, 2, 3, 4),
       db.sadd('set-two', 3, 4, 5, 6),
       db.sadd('set-three', 6, 7, 8)

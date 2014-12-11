@@ -40,7 +40,7 @@ var EVENTS = [
 ];
 
 /**
- * A small Redis client that returns promises for all operations.
+ * A small Redis client that returns comb promises for all operations.
  *
  * Supported options are:
  *
@@ -52,7 +52,7 @@ var EVENTS = [
  *
  * Example:
  *
- *   var redis = require('then-redis');
+ *   var redis = require('comb-redis');
  *   var db = redis.createClient('tcp://127.0.0.1:6379');
  *
  *   var promise = db.set('a-key', 'my value').then(function () {
@@ -110,17 +110,18 @@ function Client(options) {
 require('util').inherits(Client, EventEmitter);
 
 Client.prototype.send = function (command, args) {
-  var client = this._redisClient;
+  var client = this._redisClient,
+      done = new Promise();
 
-  return new Promise(function (resolve, reject) {
-    client.send_command(command, args || [], function (error, value) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(value);
-      }
-    });
+  client.send_command(command, args || [], function (error, value) {
+    if (error) {
+      done.errback(error);
+    } else {
+      done.callback(value);
+    }
   });
+
+  return done.promise();
 };
 
 var slice = Array.prototype.slice;
@@ -129,7 +130,7 @@ Object.defineProperties(Client.prototype, {
 
   // Parse the result of INFO.
   info: d(function () {
-    return this.send('info').then(parseInfo);
+    return this.send('info').chain(parseInfo);
   }),
 
   // Optionally accept an array as the only argument to MGET.
@@ -158,18 +159,18 @@ Object.defineProperties(Client.prototype, {
 
   // Update the selected_db property of the client on SELECT.
   select: d(function (db) {
-    var client = this._redisClient;
+    var client = this._redisClient,
+        done = new Promise();
 
-    return new Promise(function (resolve, reject) {
-      // Need to use this so selected_db updates properly.
-      client.select(db, function (error, value) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(value);
-        }
-      });
+    client.select(db, function (error, value) {
+      if (error) {
+        done.errback(error);
+      } else {
+        done.callback(value);
+      }
     });
+
+    return done.promise();
   }),
 
   // Optionally accept an array as the only argument to DEL.
@@ -198,8 +199,7 @@ require('redis/lib/commands').forEach(function (command) {
   // Some commands have spaces in them, like CONFIG SET.
   command = command.split(' ')[0];
 
-  if (command in Client.prototype)
-    return;
+  if (command in Client.prototype) return;
 
   Object.defineProperty(Client.prototype, command, d(function () {
     return this.send(command, slice.call(arguments, 0));
