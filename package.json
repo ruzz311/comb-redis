@@ -27,10 +27,10 @@
   ],
   "contributors": [
     {
-      "name": "Russell Madsen",
-      "email": "ruzz311@gmail.com"
+      "name": "Michael Jackson",
+      "email": "mjijackson@gmail.com"
     }
   ],
-  "author": "Michael Jackson",
+  "author": "Russell Madsen <ruzz311@gmail.com>",
   "license": "MIT"
 }
