@@ -1,7 +1,9 @@
 [![npm package](https://img.shields.io/npm/v/comb-redis.svg?style=flat-square)](https://www.npmjs.org/package/comb-redis)
 [![build status](https://img.shields.io/travis/ruzz311/comb-redis.svg?style=flat-square)](https://travis-ci.org/ruzz311/comb-redis)
-[![dependency status](https://img.shields.io/david/mjackson/comb-redis.svg?style=flat-square)](https://david-dm.org/mjackson/comb-redis)
-[![code climate](https://img.shields.io/codeclimate/github/ruzz311/comb-redis.svg?style=flat-square)](https://codeclimate.com/github/ruzz311/comb-redis)
+[![dependency status](https://img.shields.io/david/ruzz311/comb-redis.svg?style=flat-square)](https://david-dm.org/ruzz311/comb-redis)
+[![Code Climate](https://img.shields.io/codeclimate/github/ruzz311/comb-redis.svg)](https://codeclimate.com/github/ruzz311/comb-redis)
+
+[GENTLY FORKED FROM mjackson/then-redis](https://github.com/mjackson/then-redis)
 
 [comb-redis](https://github.com/ruzz311/comb-redis) is a fast, [comb](http://c2fo.github.io/comb/) promise-based [Redis](http://redis.io) client for [node.js](http://nodejs.org). It's build on top of [node_redis](https://github.com/mranney/node_redis), so it's safe and stable.
 
