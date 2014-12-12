@@ -2,3 +2,4 @@
 .jshintrc
 .travis.yml
 tests
+.idea
