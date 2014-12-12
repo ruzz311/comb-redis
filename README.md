@@ -1,16 +1,16 @@
-[![npm package](https://img.shields.io/npm/v/then-redis.svg?style=flat-square)](https://www.npmjs.org/package/then-redis)
-[![build status](https://img.shields.io/travis/mjackson/then-redis.svg?style=flat-square)](https://travis-ci.org/mjackson/then-redis)
-[![dependency status](https://img.shields.io/david/mjackson/then-redis.svg?style=flat-square)](https://david-dm.org/mjackson/then-redis)
-[![code climate](https://img.shields.io/codeclimate/github/mjackson/then-redis.svg?style=flat-square)](https://codeclimate.com/github/mjackson/then-redis)
+[![npm package](https://img.shields.io/npm/v/comb-redis.svg?style=flat-square)](https://www.npmjs.org/package/comb-redis)
+[![build status](https://img.shields.io/travis/ruzz311/comb-redis.svg?style=flat-square)](https://travis-ci.org/ruzz311/comb-redis)
+[![dependency status](https://img.shields.io/david/mjackson/comb-redis.svg?style=flat-square)](https://david-dm.org/mjackson/comb-redis)
+[![code climate](https://img.shields.io/codeclimate/github/ruzz311/comb-redis.svg?style=flat-square)](https://codeclimate.com/github/ruzz311/comb-redis)
 
-[then-redis](https://github.com/mjijackson/then-redis) is a fast, promise-based [Redis](http://redis.io) client for [node.js](http://nodejs.org). It's build on top of [node_redis](https://github.com/mranney/node_redis), so it's safe and stable.
+[comb-redis](https://github.com/ruzz311/comb-redis) is a fast, [comb](http://c2fo.github.io/comb/) promise-based [Redis](http://redis.io) client for [node.js](http://nodejs.org). It's build on top of [node_redis](https://github.com/mranney/node_redis), so it's safe and stable.
 
 ### Usage
 
 To create a client:
 
 ```js
-var redis = require('then-redis');
+var redis = require('comb-redis');
 
 var db = redis.createClient();
 var db = redis.createClient('tcp://localhost:6379');
@@ -86,11 +86,11 @@ For best results, it is recommended that you use Redis 2.6 or above.
 
 Using [npm](https://www.npmjs.org/):
 
-    $ npm install then-redis
+    $ npm install comb-redis
 
 ### Issues
 
-Please file issues on the [issue tracker on GitHub](https://github.com/mjackson/then-redis/issues).
+Please file issues on the [issue tracker on GitHub](https://github.com/ruzz311/comb-redis/issues).
 
 ### Tests
 
