@@ -4,7 +4,7 @@ var db = require('./db');
 
 describe('info', function () {
   it('returns an object of info', function () {
-    return db.info().then(function (info) {
+    return db.info().chain(function (info) {
       assert(info);
       expect(typeof info).toEqual('object');
       assert(info.redis_version);

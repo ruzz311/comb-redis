@@ -78,7 +78,7 @@ db.send('incrby', [ 'my-key', 5 ]);
 db.send('mset', [ 'a', 'one', 'b', 'two' ]);
 ```
 
-\* `INFO`, `MSET`, `MSETNX`, `HMSET` and `HGETALL` optionally accept/return JavaScript objects for convenience in dealing with Redis' multi-key and hash APIs
+\* `INFO`, `MGET`, `MSET`, `MSETNX`, `HMSET`, `HGETALL`, `LPUSH`, and `RPUSH` optionally accept/return JavaScript objects for convenience in dealing with Redis' multi-key and hash APIs
 
 ### Compatibility
 

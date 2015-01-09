@@ -1,5 +1,6 @@
 var url = require('url');
 var redis = require('redis');
+var d = require('describe-property');
 var EventEmitter = require('events').EventEmitter;
 var appendHashToArray = require('./utils/appendHashToArray');
 var parseInfo = require('./utils/parseInfo');
@@ -128,63 +129,68 @@ var slice = Array.prototype.slice;
 Object.defineProperties(Client.prototype, {
 
   // Parse the result of INFO.
-  info: {
-    value: function () {
-      return this.send('info').chain(parseInfo);
-    }
-  },
+  info: d(function () {
+    return this.send('info').chain(parseInfo);
+  }),
+
+  // Optionally accept an array as the only argument to MGET.
+  mget: d(function (keys) {
+    var args = Array.isArray(keys) ? keys : slice.call(arguments, 0);
+    return this.send('mget', args);
+  }),
 
   // Optionally accept a hash as the only argument to MSET.
-  mset: {
-    value: function (hash) {
-      var args = (typeof hash === 'object') ? appendHashToArray(hash, []) : slice.call(arguments, 0);
-      return this.send('mset', args);
-    }
-  },
+  mset: d(function (hash) {
+    var args = (typeof hash === 'object') ? appendHashToArray(hash, []) : slice.call(arguments, 0);
+    return this.send('mset', args);
+  }),
 
   // Optionally accept a hash as the only argument to MSETNX.
-  msetnx: {
-    value: function (hash) {
-      var args = (typeof hash === 'object') ? appendHashToArray(hash, []) : slice.call(arguments, 0);
-      return this.send('msetnx', args);
-    }
-  },
+  msetnx: d(function (hash) {
+    var args = (typeof hash === 'object') ? appendHashToArray(hash, []) : slice.call(arguments, 0);
+    return this.send('msetnx', args);
+  }),
 
   // Optionally accept a hash as the first argument to HMSET after the key.
-  hmset: {
-    value: function (key, hash) {
-      var args = (typeof hash === 'object') ? appendHashToArray(hash, [ key ]) : slice.call(arguments, 0);
-      return this.send('hmset', args);
-    }
-  },
+  hmset: d(function (key, hash) {
+    var args = (typeof hash === 'object') ? appendHashToArray(hash, [ key ]) : slice.call(arguments, 0);
+    return this.send('hmset', args);
+  }),
 
   // Update the selected_db property of the client on SELECT.
-  select: {
-    value: function (db) {
-      var client = this._redisClient,
-          done = new Promise();
+  select: d(function (db) {
+    var done = new Promise();
+    // Need to use this so selected_db updates properly.
+    this._redisClient.select(db, function (error, value) {
+      if (error) {
+        done.errback(error);
+      } else {
+        done.callback(value);
+      }
+    });
+    return done.promise();
+  }),
 
-      // Need to use this so selected_db updates properly.
-      client.select(db, function (error, value) {
-        if (error) {
-          done.errback(error);
-        } else {
-          done.callback(value);
-        }
-      });
-
-      return done.promise();
-    }
-  }
+  // Optionally accept an array as the only argument to DEL.
+  del: d(function (keys) {
+    var args = Array.isArray(keys) ? keys : slice.call(arguments, 0);
+    return this.send('del', args);
+  })
 
 });
 
+// Optionally accept an array as the first argument to LPUSH and RPUSH after the key.
+[ 'lpush', 'rpush' ].forEach(function (command) {
+  Object.defineProperty(Client.prototype, command, d(function (key, array) {
+    var args = Array.isArray(array) ? [ key ].concat(array) : slice.call(arguments, 0);
+    return this.send(command, args);
+  }));
+});
+
 PROPERTIES.forEach(function (propertyName) {
-  Object.defineProperty(Client.prototype, propertyName, {
-    get: function () {
-      return this._redisClient[propertyName];
-    }
-  });
+  Object.defineProperty(Client.prototype, propertyName, d.gs(function () {
+    return this._redisClient[propertyName];
+  }));
 });
 
 require('redis/lib/commands').forEach(function (command) {
@@ -193,11 +199,9 @@ require('redis/lib/commands').forEach(function (command) {
 
   if (command in Client.prototype) return;
 
-  Object.defineProperty(Client.prototype, command, {
-    value: function () {
-      return this.send(command, slice.call(arguments, 0));
-    }
-  });
+  Object.defineProperty(Client.prototype, command, d(function () {
+    return this.send(command, slice.call(arguments, 0));
+  }));
 });
 
 module.exports = Client;

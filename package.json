@@ -4,7 +4,7 @@
   "description": "A small, promise-based Redis client",
   "main": "modules/index.js",
   "scripts": {
-    "test": "jshint . && mocha modules/**/__tests__/*-test.js"
+    "test": "jshint . && mocha --reporter spec 'modules/**/__tests__/*-test.js'"
   },
   "repository": {
     "type": "git",
@@ -12,12 +12,16 @@
   },
   "dependencies": {
     "comb": "^0.3.6",
-    "redis": "^0.12.1"
+    "redis": "^0.12.1",
+    "describe-property": "^1.0.0"
   },
   "devDependencies": {
     "expect": "^1.1.0",
     "jshint": "^2.5.10",
     "mocha": "^2.0.1"
+  },
+  "peerDependencies": {
+    "redis": "^0.12.1"
   },
   "keywords": [
     "redis",
