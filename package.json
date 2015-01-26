@@ -1,6 +1,6 @@
 {
   "name": "comb-redis",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A small, promise-based Redis client",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "describe-property": "^1.0.0",
-    "comb": "^0.3.6",
+    "comb": "^0.4.0",
     "redis": "^0.12.1"
   },
   "devDependencies": {
