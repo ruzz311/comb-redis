@@ -5,7 +5,7 @@ var db = require('./db');
 describe('decr', function () {
   describe('when a key does not exist', function () {
     it('returns -1', function () {
-      return db.decr('does-not-exist').then(function (reply) {
+      return db.decr('does-not-exist').chain(function (reply) {
         expect(reply).toBe(-1);
       });
     });
@@ -17,7 +17,7 @@ describe('decr', function () {
     });
 
     it('returns the decremented value', function () {
-      return db.decr('a-key').then(function (reply) {
+      return db.decr('a-key').chain(function (reply) {
         expect(reply).toBe(4);
       });
     });
@@ -29,7 +29,7 @@ describe('decr', function () {
     });
 
     it('returns an error', function () {
-      return db.decr('a-key').then(function () {
+      return db.decr('a-key').chain(function () {
         assert(false, 'decr succeeded on a non-integer key');
       }, function (error) {
         assert(error);
