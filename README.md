@@ -5,6 +5,8 @@
 
 [GENTLY FORKED FROM mjackson/then-redis](https://github.com/mjackson/then-redis)
 
+### This module assumes that comb has been declared elsewhere in your project, otherwise conflicts will occur.
+
 [comb-redis](https://github.com/ruzz311/comb-redis) is a fast, [comb](http://c2fo.github.io/comb/) promise-based [Redis](http://redis.io) client for [node.js](http://nodejs.org). It's build on top of [node_redis](https://github.com/mranney/node_redis), so it's safe and stable.
 
 ### Usage
