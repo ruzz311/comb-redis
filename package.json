@@ -2,23 +2,24 @@
   "name": "comb-redis",
   "version": "1.0.6",
   "description": "A small, promise-based Redis client",
-  "main": "modules/index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "jshint . && mocha --reporter spec 'modules/**/__tests__/*-test.js'"
+    "test": "jshint . && mocha --reporter spec 'tests/*-test.js'"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/ruzz311/comb-redis.git"
   },
   "dependencies": {
+    "describe-property": "^1.0.0",
     "comb": "^0.3.6",
-    "redis": "^0.12.1",
-    "describe-property": "^1.0.0"
+    "redis": "^0.12.1"
   },
   "devDependencies": {
     "expect": "^1.1.0",
     "jshint": "^2.5.10",
-    "mocha": "^2.0.1"
+    "mocha": "^2.0.1",
+    "redis": "^0.12.1"
   },
   "peerDependencies": {
     "redis": "^0.12.1"

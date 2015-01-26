@@ -159,15 +159,17 @@ Object.defineProperties(Client.prototype, {
 
   // Update the selected_db property of the client on SELECT.
   select: d(function (db) {
-    var done = new Promise();
-    // Need to use this so selected_db updates properly.
-    this._redisClient.select(db, function (error, value) {
+    var client = this._redisClient,
+        done = new Promise();
+
+    client.select(db, function (error, value) {
       if (error) {
         done.errback(error);
       } else {
         done.callback(value);
       }
     });
+
     return done.promise();
   }),
 
