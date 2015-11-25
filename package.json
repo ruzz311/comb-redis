@@ -1,6 +1,6 @@
 {
   "name": "comb-redis",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "A small, promise-based Redis client",
   "main": "index.js",
   "scripts": {
