@@ -195,7 +195,7 @@ PROPERTIES.forEach(function (propertyName) {
   }));
 });
 
-require('redis/lib/commands').forEach(function (command) {
+require('redis-commands').list.forEach(function (command) {
   // Some commands have spaces in them, like CONFIG SET.
   command = command.split(' ')[0];
 
