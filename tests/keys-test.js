@@ -11,7 +11,7 @@ describe('keys', function () {
     });
   });
 
-  describe('when there are many long keys', function () {
+  describe.skip('when there are many long keys', function () {
     var hash;
     beforeEach(function () {
       hash = {};
