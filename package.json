@@ -27,6 +27,9 @@
     "promise",
     "promises"
   ],
+  "engines": {
+    "node": ">= 4.0.0"
+  },
   "contributors": [
     {
       "name": "Michael Jackson",

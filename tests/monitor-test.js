@@ -15,8 +15,8 @@ describe('monitor', function () {
     beforeEach(function () {
       monitorMessages = [];
       commands = [
-        [ 'set', 'a', 5 ],
-        [ 'incrby', 'a', 6 ],
+        [ 'set', 'a', '5' ],
+        [ 'incrby', 'a', '6' ],
         [ 'get', 'a' ]
       ];
 
