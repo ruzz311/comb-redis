@@ -16,7 +16,7 @@
     "redis-commands": "^1.0.1"
   },
   "devDependencies": {
-    "comb": "git://github.com/C2FO/comb.git#node-5",
+    "comb": "^1.0.0",
     "expect": "^1.1.0",
     "jshint": "^2.5.10",
     "mocha": "^2.0.1"
