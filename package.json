@@ -1,6 +1,6 @@
 {
   "name": "comb-redis",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "A small, promise-based Redis client",
   "main": "index.js",
   "scripts": {
@@ -12,17 +12,14 @@
   },
   "dependencies": {
     "describe-property": "^1.0.0",
-    "redis": "^0.12.1"
+    "redis": "^2.4.0",
+    "redis-commands": "^1.0.1"
   },
   "devDependencies": {
-    "comb": "^0.4.0",
+    "comb": "^1.0.0",
     "expect": "^1.1.0",
     "jshint": "^2.5.10",
-    "mocha": "^2.0.1",
-    "redis": "^0.12.1"
-  },
-  "peerDependencies": {
-    "redis": "^0.12.1"
+    "mocha": "^2.0.1"
   },
   "keywords": [
     "redis",
@@ -30,6 +27,9 @@
     "promise",
     "promises"
   ],
+  "engines": {
+    "node": ">= 4.0.0"
+  },
   "contributors": [
     {
       "name": "Michael Jackson",
